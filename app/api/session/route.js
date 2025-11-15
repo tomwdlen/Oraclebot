@@ -8,7 +8,8 @@ export async function GET() {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "OpenAI-Beta": "chatkit_beta=v1"   // ✅ REQUIRED
       },
       body: JSON.stringify({ workflow_id })
     });
@@ -20,6 +21,7 @@ export async function GET() {
     }
 
     return Response.json({ client_secret: data.client_secret });
+
   } catch (err) {
     return Response.json({ error: String(err) }, { status: 500 });
   }
