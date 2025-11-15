@@ -9,9 +9,13 @@ export async function GET() {
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "OpenAI-Beta": "chatkit_beta=v1"   // ✅ REQUIRED
+        "OpenAI-Beta": "chatkit_beta=v1"
       },
-      body: JSON.stringify({ workflow_id })
+      body: JSON.stringify({
+        workflow: {
+          id: workflow_id     // ✅ correct schema
+        }
+      })
     });
 
     const data = await res.json();
@@ -21,7 +25,6 @@ export async function GET() {
     }
 
     return Response.json({ client_secret: data.client_secret });
-
   } catch (err) {
     return Response.json({ error: String(err) }, { status: 500 });
   }
